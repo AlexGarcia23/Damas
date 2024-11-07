@@ -6,6 +6,12 @@ public class Posicion {
     private int fila;
     private char columna;
 
+    //Constructor
+    public Posicion(int fila, char columna) {
+        this.fila = fila;
+        this.columna = columna;
+    }
+
     //Metodos
     public int getFila() {
         return fila;
