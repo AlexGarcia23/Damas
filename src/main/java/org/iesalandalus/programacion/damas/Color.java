@@ -18,4 +18,5 @@ public enum Color {
                 "cadenaAMostrar='" + cadenaAMostrar + '\'' +
                 '}';
     }
+
 }
