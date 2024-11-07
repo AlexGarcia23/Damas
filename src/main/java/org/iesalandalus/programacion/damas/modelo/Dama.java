@@ -11,7 +11,7 @@ public class Dama {
     //constructor
     public Dama() {
         this.color = Color.BLANCO;
-        this.posicion = posicionAleatoria();
+        this.posicion = crearPosicionAleatoria();
         esDamaEspecial = false;
     }
 
@@ -20,8 +20,8 @@ public class Dama {
 
     }
 
-    //Metodo posicionAleatoria
-    private Posicion posicionAleatoria(){
+    //Metodo crearPosicionAleatoria
+    private Posicion crearPosicionAleatoria(){
         Random random = new Random();
 
         int filaInicio = (color == Color.BLANCO) ? 3:6;
