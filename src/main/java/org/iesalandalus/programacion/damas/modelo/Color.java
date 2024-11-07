@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.damas;
+package org.iesalandalus.programacion.damas.modelo;
 
 public enum Color {
     BLANCO("Blanco"),
@@ -14,9 +14,7 @@ public enum Color {
 
     @Override
     public String toString() {
-        return "Color{" +
-                "cadenaAMostrar='" + cadenaAMostrar + '\'' +
-                '}';
+        return cadenaAMostrar;
     }
 
 }
