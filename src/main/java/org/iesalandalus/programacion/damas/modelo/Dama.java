@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.damas.modelo;
 
+import java.util.Random;
+
 public class Dama {
     //Atributos
     private Color color;
@@ -7,10 +9,26 @@ public class Dama {
     private boolean esDamaEspecial;
 
     //constructor
-    public Dama(Color color, Posicion posicion) {
-        this.color = color;
-        this.posicion = posicion;
+    public Dama() {
+        this.color = Color.BLANCO;
+        this.posicion = posicionAleatoria();
         esDamaEspecial = false;
+    }
+
+    //Metodo posicionAleatoria
+    private Posicion posicionAleatoria(){
+        Random random = new Random();
+
+        int fila = random.nextInt(3) + 1;
+        int columna;
+        char columnaChar;
+        do {
+            columnaChar = (char) ('A' + random.nextInt(8));
+            columna = columnaChar - 'A';
+        } while ((fila + columna) % 2 == 0);
+
+        return new Posicion(fila, columnaChar);
+
     }
 
     //Metodos
