@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.damas;
 
+import java.util.Objects;
+
 public class Posicion {
 
     //Atributos
@@ -16,6 +18,21 @@ public class Posicion {
     public Posicion(Posicion otra) {
         this.fila = otra.fila;
         this.columna = otra.columna;
+    }
+
+    //Metodo equals y hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Posicion posicion = (Posicion) o;
+        return fila == posicion.fila && columna == posicion.columna;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fila, columna);
     }
 
     //Metodos
