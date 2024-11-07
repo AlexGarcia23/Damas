@@ -6,6 +6,9 @@ public enum Direccion {
     SURESTE("Sureste"),
     SUROESTE("Suroeste");
 
+    //Atributos
+    private String cadenaAMostrar;
+
 
 }
 
