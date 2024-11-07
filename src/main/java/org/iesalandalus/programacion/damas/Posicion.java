@@ -35,6 +35,15 @@ public class Posicion {
         return Objects.hash(fila, columna);
     }
 
+    //Metodo toString()
+    @Override
+    public String toString() {
+        return "Posicion{" +
+                "fila=" + fila +
+                ", columna=" + columna +
+                '}';
+    }
+
     //Metodos
     public int getFila() {
         return fila;
