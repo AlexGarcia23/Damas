@@ -15,11 +15,17 @@ public class Dama {
         esDamaEspecial = false;
     }
 
+    public Dama(Color color){
+        this.color = color;
+
+    }
+
     //Metodo posicionAleatoria
     private Posicion posicionAleatoria(){
         Random random = new Random();
 
-        int fila = random.nextInt(3) + 1;
+        int filaInicio = (color == Color.BLANCO) ? 3:6;
+        int fila = random.nextInt(3) + filaInicio;
         int columna;
         char columnaChar;
         do {
