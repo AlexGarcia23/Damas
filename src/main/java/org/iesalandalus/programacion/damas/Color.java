@@ -5,5 +5,7 @@ public enum Color {
     NEGRO("Negro");
 
     //Atributos
+    private String cadenaAMostrar;
+
 
 }
