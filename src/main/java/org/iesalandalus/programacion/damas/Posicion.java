@@ -12,6 +12,12 @@ public class Posicion {
         this.columna = columna;
     }
 
+    //Constructor copia
+    public Posicion(Posicion otra) {
+        this.fila = otra.fila;
+        this.columna = otra.columna;
+    }
+
     //Metodos
     public int getFila() {
         return fila;
