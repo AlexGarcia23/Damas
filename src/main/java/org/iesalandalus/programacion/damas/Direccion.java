@@ -9,10 +9,12 @@ public enum Direccion {
     //Atributos
     private String cadenaAMostrar;
 
+    //Constructor
     Direccion(String cadenaAMostrar) {
         this.cadenaAMostrar = cadenaAMostrar;
     }
 
+    //Metodo toString()
     @Override
     public String toString() {
         return "Direccion{" +
