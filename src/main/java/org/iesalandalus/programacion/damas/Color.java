@@ -7,5 +7,8 @@ public enum Color {
     //Atributos
     private String cadenaAMostrar;
 
-
+    //Constructor
+    Color(String cadenaAMostrar) {
+        this.cadenaAMostrar = cadenaAMostrar;
+    }
 }
