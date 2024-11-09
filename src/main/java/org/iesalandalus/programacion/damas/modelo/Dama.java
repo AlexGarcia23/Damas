@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.damas.modelo;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.Random;
 
 public class Dama {
@@ -42,6 +43,24 @@ public class Dama {
         if (direccion == null){
             throw new IllegalArgumentException("Tienes que poner una dirección");
         }
+        if ((pasos_columna < 1 || pasos_fila < 1))  {
+            throw new IllegalArgumentException("Tienes que poner un número mayor que 0");
+        }
+        if (!esDamaEspecial){
+            if ((pasos_columna != 1 || pasos_fila != 1)){
+                throw new IllegalArgumentException("Las damas normales solo pueden moverse de uno en uno");
+            }
+        }
+        if (color == Color.BLANCO && posicion.getFila() == 0) {
+            esDamaEspecial = true;
+        }
+        if (color == Color.NEGRO && posicion.getFila() == 7) {
+            esDamaEspecial = true;
+        }
+        if ((posicion.getFila() > 7 || posicion.getColumna() > 7 || posicion.getFila() < 0 || posicion.getColumna() < 0)){
+            throw new OperationNotSupportedException("El movimiento de la dama la saca fuera del tablero.");
+        }
+
         if (esDamaEspecial){
             switch (direccion){
                 case NORESTE:
@@ -57,6 +76,7 @@ public class Dama {
                     posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() - pasos_columna));
                     break;
             }
+        }
             if (color == Color.BLANCO){
                 if (direccion == Direccion.NORESTE){
                     posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() + pasos_columna));
@@ -75,8 +95,7 @@ public class Dama {
                     throw new IllegalArgumentException("La dama negra solo puede moverse al sureste y al suroeste");
                 }
             }
-        }
-    }
+}
 
     //Metodos
 
@@ -102,5 +121,16 @@ public class Dama {
 
     public void setEsDamaEspecial(boolean esDamaEspecial) {
         this.esDamaEspecial = esDamaEspecial;
+    }
+
+    //Metodo to string
+
+    @Override
+    public String toString() {
+        return "Dama{" +
+                "color=" + color +
+                ", posicion=" + posicion +
+                ", esDamaEspecial=" + esDamaEspecial +
+                '}';
     }
 }
