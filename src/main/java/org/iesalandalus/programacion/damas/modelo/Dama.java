@@ -38,8 +38,44 @@ public class Dama {
     }
 
     //Metodo mover
-    public void mover (Direccion direccion, int pasos){
-
+    public void mover (Direccion direccion, int pasos_fila, char pasos_columna){
+        if (direccion == null){
+            throw new IllegalArgumentException("Tienes que poner una dirección");
+        }
+        if (esDamaEspecial){
+            switch (direccion){
+                case NORESTE:
+                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() + pasos_columna));
+                    break;
+                case NOROESTE:
+                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() - pasos_columna));
+                    break;
+                case SURESTE:
+                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() + pasos_columna));
+                    break;
+                case SUROESTE:
+                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() - pasos_columna));
+                    break;
+            }
+            if (color == Color.BLANCO){
+                if (direccion == Direccion.NORESTE){
+                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() + pasos_columna));
+                } else if (direccion == Direccion.NOROESTE){
+                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() - pasos_columna));
+                } else {
+                    throw new IllegalArgumentException("La dama blanca solo puede moverse al noreste y al noroeste");
+                }
+            }
+            if (color == Color.NEGRO){
+                if (direccion == Direccion.SURESTE){
+                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() + pasos_columna));
+                } else if (direccion == Direccion.SUROESTE){
+                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() - pasos_columna));
+                } else {
+                    throw new IllegalArgumentException("La dama negra solo puede moverse al sureste y al suroeste");
+                }
+            }
+        }
     }
 
     //Metodos
