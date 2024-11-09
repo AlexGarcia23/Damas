@@ -37,6 +37,11 @@ public class Dama {
 
     }
 
+    //Metodo mover
+    public void mover (Direccion direccion, int pasos){
+
+    }
+
     //Metodos
 
     public Color getColor() {
