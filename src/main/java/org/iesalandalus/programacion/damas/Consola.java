@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.damas;
 
+import org.iesalandalus.programacion.damas.modelo.Color;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -27,6 +28,20 @@ public class Consola {
         return opcion;
     }
 
-
+    public static Color elegirOpcion() {
+        Color color = null;
+        while (color == null) {
+            mostrarMensaje("Seleccione el color (1: Blanco, 2: Negro):");
+            int opcion = Entrada.entero();
+            if (opcion == 1) {
+                color = Color.BLANCO;
+            } else if (opcion == 2) {
+                color = Color.NEGRO;
+            } else {
+                mostrarMensaje("Opción no válida, por favor elija 1 o 2.");
+            }
+        }
+        return color;
+    }
 
 }

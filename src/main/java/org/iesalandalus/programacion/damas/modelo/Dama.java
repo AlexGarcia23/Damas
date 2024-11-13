@@ -58,7 +58,11 @@ public class Dama {
             esDamaEspecial = true;
         }
         if ((posicion.getFila() > 7 || posicion.getColumna() > 7 || posicion.getFila() < 0 || posicion.getColumna() < 0)){
-            throw new OperationNotSupportedException("El movimiento de la dama la saca fuera del tablero.");
+            try {
+                throw new OperationNotSupportedException("El movimiento de la dama la saca fuera del tablero.");
+            } catch (OperationNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         if (esDamaEspecial){
