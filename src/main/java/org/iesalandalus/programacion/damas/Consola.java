@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.damas;
 
 import org.iesalandalus.programacion.damas.modelo.Color;
+import org.iesalandalus.programacion.damas.modelo.Direccion;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -42,6 +43,33 @@ public class Consola {
             }
         }
         return color;
+    }
+
+    public static Direccion mostrarMenuDirecciones(){
+        Direccion direccion = null;
+        while (direccion == null){
+            mostrarMensaje("Selecciona una dirección: ");
+            mostrarMensaje("1.Noroeste, 2.Noreste, 3.Sureste, 4.Suroeste");
+            int mover = Entrada.entero();
+            switch (mover){
+                case 1:
+                    direccion = Direccion.NOROESTE;
+                    break;
+                case 2:
+                    direccion = Direccion.NORESTE;
+                    break;
+                case 3:
+                    direccion = Direccion.SURESTE;
+                    break;
+                case 4:
+                    direccion = Direccion.SUROESTE;
+                    break;
+            }
+            if (mover < 1 || mover > 4){
+                throw new IllegalArgumentException("Solo puedes elegir entre esas 4 opciones");
+            }
+        }
+        return direccion;
     }
 
 }
