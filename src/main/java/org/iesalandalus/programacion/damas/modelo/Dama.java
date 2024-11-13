@@ -128,13 +128,12 @@ public class Dama {
     }
 
     //Metodo to string
-
     @Override
     public String toString() {
         return "Dama{" +
                 "color=" + color +
                 ", posicion=" + posicion +
-                ", esDamaEspecial=" + esDamaEspecial +
                 '}';
     }
+
 }
