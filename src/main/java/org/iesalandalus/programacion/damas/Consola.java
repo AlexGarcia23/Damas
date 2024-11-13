@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.damas;
 
 import org.iesalandalus.programacion.damas.modelo.Color;
 import org.iesalandalus.programacion.damas.modelo.Direccion;
+import org.iesalandalus.programacion.damas.modelo.Posicion;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -70,6 +71,16 @@ public class Consola {
             }
         }
         return direccion;
+    }
+
+    public static Posicion elegirPasos() {
+        Posicion posicion = null;
+        mostrarMensaje("Pon el numero de pasos que quieras dar");
+        int pasos = Entrada.entero();
+        posicion.setFila(+pasos);
+        posicion.setColumna((char) +pasos);
+
+        return posicion;
     }
 
 }
