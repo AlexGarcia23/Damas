@@ -46,41 +46,45 @@ public class Consola {
         return color;
     }
 
-    public static Direccion mostrarMenuDirecciones(){
-        Direccion direccion = null;
-        while (direccion == null){
+    public static void mostrarMenuDirecciones(){
             mostrarMensaje("Selecciona una dirección: ");
-            mostrarMensaje("1.Noroeste, 2.Noreste, 3.Sureste, 4.Suroeste");
-            int mover = Entrada.entero();
-            switch (mover){
-                case 1:
-                    direccion = Direccion.NOROESTE;
-                    break;
-                case 2:
-                    direccion = Direccion.NORESTE;
-                    break;
-                case 3:
-                    direccion = Direccion.SURESTE;
-                    break;
-                case 4:
-                    direccion = Direccion.SUROESTE;
-                    break;
-            }
-            if (mover < 1 || mover > 4){
-                throw new IllegalArgumentException("Solo puedes elegir entre esas 4 opciones");
-            }
+            mostrarMensaje("1.Noroeste");
+            mostrarMensaje("2.Noreste");
+            mostrarMensaje("3.Sureste");
+            mostrarMensaje("4.Suroeste");
+    }
+
+    public static Direccion elegirDirección(){
+        int mover = Entrada.entero();
+        Direccion direccion = null;
+        switch (mover){
+            case 1:
+                direccion = Direccion.NOROESTE;
+                break;
+            case 2:
+                direccion = Direccion.NORESTE;
+                break;
+            case 3:
+                direccion = Direccion.SURESTE;
+                break;
+            case 4:
+                direccion = Direccion.SUROESTE;
+                break;
+        }
+        if (mover < 1 || mover > 4){
+            throw new IllegalArgumentException("Solo puedes elegir entre esas 4 opciones");
         }
         return direccion;
     }
 
-    public static Posicion elegirPasos() {
-        Posicion posicion = null;
-        mostrarMensaje("Pon el numero de pasos que quieras dar");
-        int pasos = Entrada.entero();
-        posicion.setFila(+pasos);
-        posicion.setColumna((char) +pasos);
-
-        return posicion;
+    public static int elegirPasos() {
+            mostrarMensaje("Introduzca el número de pasos (mínimo 1): ");
+            int pasos = Entrada.entero();
+            while (pasos < 1){
+                mostrarMensaje("Debe ser mayor que 1");
+                pasos = Entrada.entero();
+            }
+        return pasos;
     }
 
 }
