@@ -87,4 +87,9 @@ public class Consola {
         return pasos;
     }
 
+    public static void despedirse() {
+        mostrarMensaje("Gracias por jugar!");
+        System.exit(0);
+    }
+
 }
