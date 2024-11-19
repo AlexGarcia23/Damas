@@ -2,7 +2,6 @@ package org.iesalandalus.programacion.damas;
 
 import org.iesalandalus.programacion.damas.modelo.Color;
 import org.iesalandalus.programacion.damas.modelo.Direccion;
-import org.iesalandalus.programacion.damas.modelo.Posicion;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -18,7 +17,7 @@ public class Consola {
         mostrarMensaje("1. Crear dama por defecto");
         mostrarMensaje("2. Crear dama eligiendo color");
         mostrarMensaje("3. Mover dama");
-        mostrarMensaje("4. Salir dama");
+        mostrarMensaje("4. Salir");
     }
 
     public static int elegirOpcionMenu() {
@@ -30,7 +29,7 @@ public class Consola {
         return opcion;
     }
 
-    public static Color elegirOpcion() {
+    public static Color elegirColor() {
         Color color = null;
         while (color == null) {
             mostrarMensaje("Seleccione el color (1: Blanco, 2: Negro):");
@@ -55,21 +54,21 @@ public class Consola {
     }
 
     public static Direccion elegirDirección(){
-        int mover = Entrada.entero();
+        int mover;
+        do {
+            mostrarMensaje("Elige una dirección (1 - 4): ");
+            mover = Entrada.entero();
+        } while (mover < 1 || mover > 4);
         Direccion direccion = null;
         switch (mover){
             case 1:
-                direccion = Direccion.NOROESTE;
-                break;
+                return Direccion.NOROESTE;
             case 2:
-                direccion = Direccion.NORESTE;
-                break;
+                return Direccion.NORESTE;
             case 3:
-                direccion = Direccion.SURESTE;
-                break;
+                return Direccion.SURESTE;
             case 4:
-                direccion = Direccion.SUROESTE;
-                break;
+                return Direccion.SUROESTE;
         }
         if (mover < 1 || mover > 4){
             throw new IllegalArgumentException("Solo puedes elegir entre esas 4 opciones");
@@ -78,13 +77,13 @@ public class Consola {
     }
 
     public static int elegirPasos() {
+        int pasos = 0;
             mostrarMensaje("Introduzca el número de pasos (mínimo 1): ");
-            int pasos = Entrada.entero();
-            while (pasos < 1){
-                mostrarMensaje("Debe ser mayor que 1");
                 pasos = Entrada.entero();
-            }
-        return pasos;
+                if (pasos < 1){
+                    mostrarMensaje("Como mínimo tienes que dar un paso");
+                }
+                return pasos;
     }
 
     public static void despedirse() {

@@ -5,20 +5,21 @@ import java.util.Random;
 
 public class Dama {
     //Atributos
-    private Color color;
-    private Posicion posicion;
-    private boolean esDamaEspecial;
+    private static Color color;
+    private static Posicion posicion;
+    private static boolean esDamaEspecial;
 
     //constructor
     public Dama() {
-        this.color = Color.BLANCO;
-        this.posicion = crearPosicionAleatoria();
+        setColor(Color.BLANCO);
+        setPosicion(crearPosicionAleatoria());
         esDamaEspecial = false;
     }
 
     public Dama(Color color){
-        this.color = color;
-
+        setColor(color);
+        setPosicion(crearPosicionAleatoria());
+        esDamaEspecial = false;
     }
 
     //Metodo crearPosicionAleatoria
@@ -39,66 +40,59 @@ public class Dama {
     }
 
     //Metodo mover
-    public void mover (Direccion direccion, int pasos_fila, char pasos_columna){
+    public static void mover(Direccion direccion, int pasos) throws OperationNotSupportedException{
         if (direccion == null){
             throw new IllegalArgumentException("Tienes que poner una dirección");
         }
-        if ((pasos_columna < 1 || pasos_fila < 1))  {
+        if (pasos< 1)  {
             throw new IllegalArgumentException("Tienes que poner un número mayor que 0");
         }
-        if (!esDamaEspecial){
-            if ((pasos_columna != 1 || pasos_fila != 1)){
-                throw new IllegalArgumentException("Las damas normales solo pueden moverse de uno en uno");
-            }
+        if (!esDamaEspecial && pasos > 1) {
+            pasos = 1;
         }
-        if (color == Color.BLANCO && posicion.getFila() == 0) {
-            esDamaEspecial = true;
-        }
-        if (color == Color.NEGRO && posicion.getFila() == 7) {
-            esDamaEspecial = true;
-        }
-        if ((posicion.getFila() > 7 || posicion.getColumna() > 7 || posicion.getFila() < 0 || posicion.getColumna() < 0)){
-            try {
-                throw new OperationNotSupportedException("El movimiento de la dama la saca fuera del tablero.");
-            } catch (OperationNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        int Fila = posicion.getFila();
+        char Columna = posicion.getColumna();
 
-        if (esDamaEspecial){
             switch (direccion){
                 case NORESTE:
-                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() + pasos_columna));
-                    break;
-                case NOROESTE:
-                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() - pasos_columna));
+                    if (color == Color.NEGRO && !esDamaEspecial) {
+                        throw new OperationNotSupportedException("La dama negra no puede moverse hacia el noreste.");
+                    }
+                    Fila += pasos;
+                    Columna += pasos;
                     break;
                 case SURESTE:
-                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() + pasos_columna));
+                    if (color == Color.BLANCO && !esDamaEspecial) {
+                        throw new OperationNotSupportedException("La dama blanca no puede moverse hacia el sureste.");
+                    }
+                    Fila -= pasos;
+                    Columna += pasos;
                     break;
                 case SUROESTE:
-                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() - pasos_columna));
+                    if (color == Color.BLANCO && !esDamaEspecial) {
+                        throw new OperationNotSupportedException("La dama blanca no puede moverse hacia el suroeste.");
+                    }
+                    Fila -= pasos;
+                    Columna -= pasos;
+                    break;
+                case NOROESTE:
+                    if (color == Color.NEGRO && !esDamaEspecial) {
+                        throw new OperationNotSupportedException("La dama negra no puede moverse hacia el noroeste.");
+                    }
+                    Fila += pasos;
+                    Columna -= pasos;
                     break;
             }
+
+        if (Fila < 1 || Fila > 8 || Columna < 'A' || Columna > 'H') {
+            throw new OperationNotSupportedException("El movimiento de la dama la saca fuera del tablero.");
         }
-            if (color == Color.BLANCO){
-                if (direccion == Direccion.NORESTE){
-                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() + pasos_columna));
-                } else if (direccion == Direccion.NOROESTE){
-                    posicion = new Posicion(posicion.getFila() + pasos_fila, (char) (posicion.getColumna() - pasos_columna));
-                } else {
-                    throw new IllegalArgumentException("La dama blanca solo puede moverse al noreste y al noroeste");
-                }
-            }
-            if (color == Color.NEGRO){
-                if (direccion == Direccion.SURESTE){
-                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() + pasos_columna));
-                } else if (direccion == Direccion.SUROESTE){
-                    posicion = new Posicion(posicion.getFila() - pasos_fila, (char) (posicion.getColumna() - pasos_columna));
-                } else {
-                    throw new IllegalArgumentException("La dama negra solo puede moverse al sureste y al suroeste");
-                }
-            }
+
+        posicion = new Posicion(Fila, Columna);
+
+        if ((color == Color.BLANCO && Fila == 1) || (color == Color.NEGRO && Fila == 8)) {
+            esDamaEspecial = true;
+        }
 }
 
     //Metodos
@@ -112,11 +106,14 @@ public class Dama {
     }
 
     public Posicion getPosicion() {
-        return posicion;
+        return new Posicion(posicion);
     }
 
     public void setPosicion(Posicion posicion) {
-        this.posicion = posicion;
+        if (posicion == null) {
+            throw new NullPointerException("La posición no puede ser nula.");
+        }
+        this.posicion = new Posicion(posicion);
     }
 
     public boolean isEsDamaEspecial() {
@@ -130,10 +127,8 @@ public class Dama {
     //Metodo to string
     @Override
     public String toString() {
-        return "Dama{" +
-                "color=" + color +
-                ", posicion=" + posicion +
-                '}';
+        return "Dama: color=" + color +
+                ", posicion=" + posicion;
     }
 
 }

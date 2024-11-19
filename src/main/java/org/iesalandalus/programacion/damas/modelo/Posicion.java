@@ -38,10 +38,7 @@ public class Posicion {
     //Metodo toString()
     @Override
     public String toString() {
-        return "Posicion{" +
-                "fila=" + fila +
-                ", columna=" + columna +
-                '}';
+        return "fila=" + fila + ", columna=" + columna;
     }
 
     //Metodos
@@ -52,8 +49,9 @@ public class Posicion {
     public void setFila(int fila) {
         if (fila < 1 || fila > 8){
             throw new IllegalArgumentException("El valor de la fila tiene que estar en el rango de valores 1 - 8");
+        } else {
+            this.fila = fila;
         }
-        this.fila = fila;
     }
 
     public char getColumna() {
@@ -63,7 +61,8 @@ public class Posicion {
     public void setColumna(char columna) {
         if (columna < 'a' || columna > 'h'){
             throw new IllegalArgumentException("El valor de la columna tiene que estar en el rango de valores de a - h ");
+        } else {
+            this.columna = columna;
         }
-        this.columna = columna;
     }
 }
